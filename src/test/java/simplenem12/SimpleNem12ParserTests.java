@@ -30,21 +30,6 @@ public class SimpleNem12ParserTests {
 		bufferedReader = Mockito.mock(BufferedReader.class);
 	}
 
-	@Before
-	public void beforeEachTestMethod() {
-		System.out.println("Invoked before each test method");
-	}
-
-	@After
-	public void afterEachTestMethod() {
-		System.out.println("Invoked after each test method");
-	}
-
-	@AfterClass
-	public static void afterAllTestMethods() {
-		System.out.println("Invoked once after all test methods");
-	}
-
 	@Test
 	public void shouldCreateTwoMeterReadObjs() {
 		List<String> lines = new ArrayList<>();
