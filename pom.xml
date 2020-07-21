@@ -38,9 +38,6 @@
 				</executions>
 				<configuration>
 					<mainClass>simplenem12.TestHarness</mainClass>
-					<arguments>
-						<argument>C:\Workspace\RedEnergy-master\SimpleNem12.csv</argument>
-					</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
