@@ -14,12 +14,16 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Implementation for SimpleNem12Parser
  * @author kulwinder
  *
  */
 public class SimpleNem12ParserImpl implements SimpleNem12Parser {
+	private static final Logger logger = LogManager.getLogger(SimpleNem12ParserImpl.class);
 	@Override
 	public Collection<MeterRead> parseSimpleNem12(File simpleNem12File) throws FileReadException {
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(simpleNem12File))) {
@@ -57,6 +61,7 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 	 */
 	private MeterRead createNewMeterRead(String line) throws FileReadException{
 		try {
+			logger.debug("createNewMeterRead method: Processing record:"+line);
 			String[] cols = line.split(",");
 			String strNmi = cols[1];
 			String strUnit = cols[2];
@@ -94,6 +99,7 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 	 * @throws FileReadException
 	 */
 	public List<MeterRead> processRecords(BufferedReader bufferedReader) throws FileReadException{
+		logger.debug("Processing started.....");
 		List<MeterRead> meters = new ArrayList<>();
 		
 		String header = bufferedReader.lines().findFirst().map(Object::toString).get();
@@ -119,6 +125,7 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 				// Nothing much to do					
 			}
 		}
+		logger.debug("Processing completed.....");
 		return meters;
 	}
 }
