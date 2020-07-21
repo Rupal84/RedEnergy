@@ -19,9 +19,11 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TestName;
 import org.mockito.Mockito;
 
 public class SimpleNem12ParserTests {
+	@Rule public TestName name = new TestName();
 	private static final Logger logger = LogManager.getLogger(SimpleNem12ParserTests.class);
 	
 	static SimpleNem12ParserImpl parser = null;
@@ -36,7 +38,7 @@ public class SimpleNem12ParserTests {
 
 	@Test
 	public void shouldCreateTwoMeterReadObjs() {
-		logger.info("It should create two meter read objects");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("100");
 		lines.add("200,1234567890,KWH");
@@ -54,7 +56,7 @@ public class SimpleNem12ParserTests {
 
 	@Test(expected = FileReadException.class)
 	public void shouldThrowExceptionForMissingHeader() {
-		logger.info("It should throw error for missing header record");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("200,1234567890,KWH");
 		lines.add("300,20170311,3,A");
@@ -66,7 +68,7 @@ public class SimpleNem12ParserTests {
 
 	@Test(expected = FileReadException.class)
 	public void shouldThrowExceptionForInCorrectUnit() {
-		logger.info("It should error for incorrect energy unit");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("100");
 		lines.add("200,1234567890,KWA");
@@ -79,7 +81,7 @@ public class SimpleNem12ParserTests {
 	
 	@Test(expected = FileReadException.class )
 	public void shouldThrowExceptionForInCorrectReadingType() {
-		logger.info("It should throw exception for incorrect reading type");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("100");
 		lines.add("200,1234567890,KWH");
@@ -92,7 +94,7 @@ public class SimpleNem12ParserTests {
 	
 	@Test(expected = FileReadException.class)
 	public void shouldThrowExceptionForInvalidVolume() {
-		logger.info("It should throw exception for invalid volume");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("100");
 		lines.add("200,1234567890,KWH");
@@ -105,7 +107,7 @@ public class SimpleNem12ParserTests {
 	
 	@Test(expected = FileReadException.class)
 	public void shouldThrowExceptionForInvalidDate() {
-		logger.info("It should throw exception for invalid date");
+		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
 		lines.add("100");
 		lines.add("200,1234567890,KWH");
