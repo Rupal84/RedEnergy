@@ -104,7 +104,7 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 		
 		String header = bufferedReader.lines().findFirst().map(Object::toString).get();
 		if(!"100".equals(header)) {
-			throw new FileReadException("Missing header");
+			throw new FileReadException("Missing header record");
 		}
 		boolean endOfFile = false;
 		Iterator<String> itr = bufferedReader.lines().iterator();

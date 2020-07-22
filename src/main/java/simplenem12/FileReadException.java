@@ -12,6 +12,7 @@ public class FileReadException extends RuntimeException{
 	private static final Logger logger = LogManager.getLogger(SimpleNem12ParserImpl.class);
 	private static final long serialVersionUID = 1L;
 	public FileReadException(String errorMessage) {
+		super(errorMessage);
 		logger.error(errorMessage);
     }
     public FileReadException(String errorMessage, Throwable err) {

@@ -1,24 +1,19 @@
 package simplenem12;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TestName;
 import org.mockito.Mockito;
 
@@ -54,7 +49,7 @@ public class SimpleNem12ParserTests {
 		assertEquals(2, meters.size());
 	}	
 
-	@Test(expected = FileReadException.class)
+	@Test
 	public void shouldThrowExceptionForMissingHeader() {
 		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
@@ -63,10 +58,11 @@ public class SimpleNem12ParserTests {
 		lines.add("900");
 		List<String> lstAllButFirst = lines.stream().skip(1).collect(Collectors.toList());
 		Mockito.when(bufferedReader.lines()).thenReturn(lines.stream()).thenReturn(lstAllButFirst.stream());
-		parser.processRecords(bufferedReader);
+		FileReadException ex = assertThrows(FileReadException.class, ()->parser.processRecords(bufferedReader));
+		assertTrue(ex.getMessage().contains("Missing header record"));
 	}	
 
-	@Test(expected = FileReadException.class)
+	@Test
 	public void shouldThrowExceptionForInCorrectUnit() {
 		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
@@ -76,10 +72,11 @@ public class SimpleNem12ParserTests {
 		lines.add("900");
 		List<String> lstAllButFirst = lines.stream().skip(1).collect(Collectors.toList());
 		Mockito.when(bufferedReader.lines()).thenReturn(lines.stream()).thenReturn(lstAllButFirst.stream());
-		parser.processRecords(bufferedReader);
+		FileReadException ex = assertThrows(FileReadException.class, ()->parser.processRecords(bufferedReader));
+		assertTrue(ex.getMessage().contains("parsing unit"));
 	}
 	
-	@Test(expected = FileReadException.class )
+	@Test
 	public void shouldThrowExceptionForInCorrectReadingType() {
 		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
@@ -89,10 +86,11 @@ public class SimpleNem12ParserTests {
 		lines.add("900");
 		List<String> lstAllButFirst = lines.stream().skip(1).collect(Collectors.toList());
 		Mockito.when(bufferedReader.lines()).thenReturn(lines.stream()).thenReturn(lstAllButFirst.stream());
-		parser.processRecords(bufferedReader);
+		FileReadException ex = assertThrows(FileReadException.class, ()->parser.processRecords(bufferedReader));
+		assertTrue(ex.getMessage().contains("parsing reading type"));
 	}
 	
-	@Test(expected = FileReadException.class)
+	@Test
 	public void shouldThrowExceptionForInvalidVolume() {
 		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
@@ -102,10 +100,11 @@ public class SimpleNem12ParserTests {
 		lines.add("900");
 		List<String> lstAllButFirst = lines.stream().skip(1).collect(Collectors.toList());
 		Mockito.when(bufferedReader.lines()).thenReturn(lines.stream()).thenReturn(lstAllButFirst.stream());
-		parser.processRecords(bufferedReader);
+		FileReadException ex = assertThrows(FileReadException.class, ()->parser.processRecords(bufferedReader));
+		assertTrue(ex.getMessage().contains("parsing volume"));
 	}
 	
-	@Test(expected = FileReadException.class)
+	@Test
 	public void shouldThrowExceptionForInvalidDate() {
 		logger.debug(name.getMethodName());
 		List<String> lines = new ArrayList<>();
@@ -115,7 +114,8 @@ public class SimpleNem12ParserTests {
 		lines.add("900");
 		List<String> lstAllButFirst = lines.stream().skip(1).collect(Collectors.toList());
 		Mockito.when(bufferedReader.lines()).thenReturn(lines.stream()).thenReturn(lstAllButFirst.stream());
-		parser.processRecords(bufferedReader);
+		FileReadException ex = assertThrows(FileReadException.class, ()->parser.processRecords(bufferedReader));
+		assertTrue(ex.getMessage().contains("parsing date"));
 	}
 	
 }
