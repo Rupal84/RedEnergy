@@ -10,7 +10,7 @@ This application makes use of java streams iterator to read csv file line by lin
 
 ## How to run Application
 1. Open terminal, go to the project directory and execute `mvn exec:java`
-2. It will prompt to enter absolute file path. Provide the input and hit enter.
+2. It will prompt to enter absolute path to test file. Provide the input and hit enter.
 3. It should give following output. <br>
 >`Total volume for NMI 6123456789 is -36.840000` <br/>
 >  `Total volume for NMI 6987654321 is 14.330000` 
